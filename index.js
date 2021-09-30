@@ -21,10 +21,18 @@ var shammy_clown = "<:shammyclown:892945388217192489>";
 var allowed = "<:allowed:803132424400928769>";
 var not_allowed = "<:notallowed:803156238673248297>";
 
+//songs
+var sendintheclowns = ["Isn't it rich?", "Are we a pair?", "Me here at last on the ground", "You in mid-air", "Send in the clowns", "Isn't it bliss?", "Don't you approve?", "One who keeps tearing around", "One who can't move", "Where are the clowns?", "Send in the clowns", "Just when I stopped", "Opening doors", "Finally knowing the one that I wanted was yours", "Making my entrance again with my usual flair", "Sure of my lines", "Noone is there", "Don't you love a farce?", "My fault, I fear", "I thought that you'd want what I want", "Sorry my dear", "But where are the clowns?", "Send in the clowns", "Don't bother", "They're here"]
+var sendintheclowns2 =[] //punctuation free version
+
+
 //when bot is activated
 client.on("ready", () => {
 	client.user.setGame(action)
 	console.log(keyword + "!");
+	for (var k=0; k<sendintheclowns.length; k++) {
+		sendintheclowns2.push(remove_punc(sendintheclowns[k]));
+	}
 });
 
 //new message sent
@@ -55,11 +63,27 @@ client.on("message", async message => {
 		}
 	}
 	
+	var clownssent = false;
+	//sing with me clown
+	for (var i = 0; i<sendintheclowns2.length-1; i++) { //check through lyrics
+		if (remove_punc(message.content) == sendintheclowns2[i]) { //find which specifically
+			console.log("this lyric");
+			message.channel.send(sendintheclowns[i+1]); //send next lyric
+			clownssent=true; // we sang!!
+			break;
+		}
+	}
+	
+	if (clownssent=true) {return;} //were we able to sing?
+	
+	//if shammy
 	if(check_keywords(shammykeywords,message)){
 		message.react(simple_emote(shammy_clown));
 		message.channel.send("", {files:["ls\\" + random_int(43) + ".png"]});
 		
+	//if clown
 	} else if(check_keywords(keywords,message)){
+		//asking clown a question?
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
 				message.channel.send("", {files:["lc\\03.png"]});
@@ -67,8 +91,16 @@ client.on("message", async message => {
 				message.channel.send("", {files:["lc\\02.png"]});
 			}
 		} else {
+			//not asking clown a question, regular response.
 			message.react(simple_emote(clown));
 			message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
+		}
+	//not talking to clown at all but asking a question, he's gonna answer anyway.
+	} else if (message.content.charAt(message.content.length - 1) == "?") {
+		if(Math.round(Math.random()) == 0){
+			message.react(simple_emote(allowed));
+		}else{
+			message.react(simple_emote(not_allowed));
 		}
 	}
 });
