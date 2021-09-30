@@ -73,7 +73,6 @@ client.on("message", async message => {
 	//sing with me clown
 	for (var i = 0; i<sendintheclowns2.length-1; i++) { //check through lyrics
 		if (remove_punc(message.content) == sendintheclowns2[i]) { //find which specifically
-			console.log("this lyric");
 			message.channel.send(sendintheclowns[i+1]); //send next lyric
 			clownssent=true; // we sang!!
 			break;
@@ -82,33 +81,30 @@ client.on("message", async message => {
 	
 	if (clownssent==true) {return;} //were we able to sing?
 	
-	
+	// if yes or no question
+	if (yesorno(yesnoquestions,message))  {
+		if(Math.round(Math.random()) == 0){
+			if(check_keywords(keywords,message)) {
+				message.channel.send("", {files:["lc\\03.png"]});
+			} else {
+				message.react(simple_emote(allowed));
+			}
+		}else{
+			if(check_keywords(keywords,message)) {
+				message.channel.send("", {files:["lc\\02.png"]});
+			} else {
+				message.react(simple_emote(not_allowed));
+			}
+		}
 	//if shammy
-	if(check_keywords(shammykeywords,message)){
+	} else if(check_keywords(shammykeywords,message)){
 		message.react(simple_emote(shammy_clown));
 		message.channel.send("", {files:["ls\\" + random_int(43) + ".png"]});
 		
 	//if clown
 	} else if(check_keywords(keywords,message)){
-		//asking clown a question?
-		if(yesorno(yesnoquestions,message)) { // ends with ?
-			if(Math.round(Math.random()) == 0){
-				message.channel.send("", {files:["lc\\03.png"]});
-			}else{
-				message.channel.send("", {files:["lc\\02.png"]});
-			}
-		} else {
-			//not asking clown a question, regular response.
-			message.react(simple_emote(clown));
-			message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
-		}
-	//not talking to clown at all but asking a question, he's gonna answer anyway.
-	} else if (yesorno(yesnoquestions,message))  {
-		if(Math.round(Math.random()) == 0){
-			message.react(simple_emote(allowed));
-		}else{
-			message.react(simple_emote(not_allowed));
-		}
+		message.react(simple_emote(clown));
+		message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
 	}
 });
 
@@ -121,13 +117,16 @@ function simple_emote(string){
 }
 
 function check_keywords(kw,msg){
-	var result = kw.some(word => has(word, msg))
+	var result = kw.some(word => has(word, msg));
 	return result;
 }
 
 // Check if a question is yes or no answerable.
 function yesorno (kw,msg) {
-	var newmsg = msg // variable to hold the edited string in.
+	let newmsg = {
+		content: ""
+	}
+	newmsg.content = msg.content // variable to hold the edited string in.
 	var clownprefix = which_keywords(keywords,msg); // find if the user addresses clown first
 	if (msg.content.startsWith(clownprefix)) {
 		newmsg.content=msg.content.substring(clownprefix.length, msg.content.length); //cut off any clown prefix
