@@ -2,8 +2,8 @@ require('dotenv').load();
 const Discord = require("discord.js");
 const client = new Discord.Client({autoReconnect: true});
 
-var name = "Beta";
-var action = "coding";
+var name = "Clown";
+var action = "clowning";
 var keyword = "clown";
 
 //keywords etc
@@ -27,9 +27,9 @@ client.on("message", async message => {
 	if(message.author.bot){return;}
 	if (!message.guild){ return};
 	
-	message.channel.send(random_int(42));
-	
 	if(keywords.some(word => message.content.includes(word))){
+		message.channel.send("", {files:["lc//" + random_int(42) + ".png"]});
+		
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
 				message.react(simple_emote(allowed));
@@ -42,7 +42,7 @@ client.on("message", async message => {
 			message.channel.send(clown);
 		}
 	}else if(shammykeywords.some(word => message.content.includes(word))){
-		message.channel.send(shammy_clown);
+		message.channel.send("", {files:["sc//" + random_int(43) + ".png"]});
 	}
 });
 
