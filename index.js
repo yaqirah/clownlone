@@ -57,6 +57,11 @@ client.on("message", async message => {
 			
 			// send
 			// use format of send [channel id] [message]
+			
+			//status
+			if (has("status", message)) {
+				client.user.setGame(message.content.substring(7,message.content.length));
+			}
 		}else{
 			message.author.send("UNAUTHORIZED");
 			client.user.setGame(message.author.username + " is clowning");
