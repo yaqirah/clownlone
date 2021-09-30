@@ -11,15 +11,16 @@ var absol = "139808943185592320";
 var shammy = "416723258449330186";
 
 //keywords etc
-const keywords = ["clown", "jester", "circus", "jokes", "fool"];
+const keywords = ["clown", "jester", "circus", "jokes", "fool", "clownbot"];
 const shammykeywords = ["shammy", "shammyclown", "mona"];
 const admins = [absol, shammy];
+const yesnoquestions = ["does", "do", "did", "can", "will", "is", "are", "could", "would", "should", "shall"];
 
 // emotes
 var clown = "<:looseclown:892945490730184745>";
 var shammy_clown = "<:shammyclown:892945388217192489>";
-var allowed = "<:allowed:803132424400928769>";
-var not_allowed = "<:notallowed:803156238673248297>";
+var allowed = "<:allowed:893221037053968404>";
+var not_allowed = "<:notallowed:893221037465010196>";
 
 //songs
 var sendintheclowns = ["Isn't it rich?", "Are we a pair?", "Me here at last on the ground", "You in mid-air", "Send in the clowns", "Isn't it bliss?", "Don't you approve?", "One who keeps tearing around", "One who can't move", "Where are the clowns?", "Send in the clowns", "Just when I stopped", "Opening doors", "Finally knowing the one that I wanted was yours", "Making my entrance again with my usual flair", "Sure of my lines", "Noone is there", "Don't you love a farce?", "My fault, I fear", "I thought that you'd want what I want", "Sorry my dear", "But where are the clowns?", "Send in the clowns", "Don't bother", "They're here"]
@@ -79,7 +80,8 @@ client.on("message", async message => {
 		}
 	}
 	
-	if (clownssent=true) {return;} //were we able to sing?
+	if (clownssent==true) {return;} //were we able to sing?
+	
 	
 	//if shammy
 	if(check_keywords(shammykeywords,message)){
@@ -89,7 +91,7 @@ client.on("message", async message => {
 	//if clown
 	} else if(check_keywords(keywords,message)){
 		//asking clown a question?
-		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
+		if(yesorno(yesnoquestions,message)) { // ends with ?
 			if(Math.round(Math.random()) == 0){
 				message.channel.send("", {files:["lc\\03.png"]});
 			}else{
@@ -101,7 +103,7 @@ client.on("message", async message => {
 			message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
 		}
 	//not talking to clown at all but asking a question, he's gonna answer anyway.
-	} else if (message.content.charAt(message.content.length - 1) == "?") {
+	} else if (yesorno(yesnoquestions,message))  {
 		if(Math.round(Math.random()) == 0){
 			message.react(simple_emote(allowed));
 		}else{
@@ -121,6 +123,33 @@ function simple_emote(string){
 function check_keywords(kw,msg){
 	var result = kw.some(word => has(word, msg))
 	return result;
+}
+
+// Check if a question is yes or no answerable.
+function yesorno (kw,msg) {
+	var newmsg = msg // variable to hold the edited string in.
+	var clownprefix = which_keywords(keywords,msg); // find if the user addresses clown first
+	if (msg.content.startsWith(clownprefix)) {
+		newmsg.content=msg.content.substring(clownprefix.length, msg.content.length); //cut off any clown prefix
+		newmsg.content=newmsg.content.replace(",", ""); //remove any commas
+		newmsg.content=newmsg.content.replace(".", ""); //remove any full stops
+		newmsg.content=newmsg.content.replace(" ", ""); //remove any extra spaces
+	}
+	result = (newmsg.content.charAt(newmsg.content.length - 1) == "?"  //if it ends with a ?
+	&& newmsg.content.startsWith(which_keywords(kw,newmsg))); //and starts with a keyword
+	return result;
+}
+
+//find a specific keyword from a group
+function which_keywords(kw,msg){
+	var resultword = "null";
+	for (var i=0; i<kw.length; i++) {
+		if (has(kw[i],msg)) {
+			resultword=kw[i]
+		}
+	}
+	return resultword;
+	
 }
 
 // helper function checking a singular keyword
