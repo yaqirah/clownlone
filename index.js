@@ -27,20 +27,21 @@ client.on("message", async message => {
 	if(message.author.bot){return;}
 	if (!message.guild){ return};
 	
-	if(check_keywords(keywords,message)){
+	if(check_keywords(shammykeywords,message)){
+		message.react(simple_emote(shammy_clown));
+		message.channel.send("", {files:["ls\\" + random_int(43) + ".png"]});
+		
+	} else if(check_keywords(keywords,message)){
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
 				message.channel.send("", {files:["lc\\03.png"]});
 			}else{
 				message.channel.send("", {files:["lc\\02.png"]});
 			}
-		}else{
+		} else {
 			message.react(simple_emote(clown));
 			message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
 		}
-	}else if(check_keywords(shammykeywords,message)){
-		message.react(simple_emote(shammy_clown));
-		message.channel.send("", {files:["ls\\" + random_int(43) + ".png"]});
 	}
 });
 
