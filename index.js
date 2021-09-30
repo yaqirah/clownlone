@@ -58,6 +58,24 @@ function check_keywords(kw,msg){
 	return result;
 }
 
+// remove any punctuation from a string
+function remove_punc(string) {
+	var remove = ["'", ",", "-", ".", "!", "?", "~", ":", ";", ")", "(", "/", "\\"];
+	var newstr = string;
+	for (var i=0; i<remove.length; i++) { //check through each of the disallowed characters.
+		var howmany = 0; //find how many instances of a specified character.
+		for (var j=0; j<newstr.length; j++) {
+			if(newstr.charAt(j)==remove[i]) {
+				howmany+=1;
+			}
+		}
+		for (var j=0; j<howmany; j++) { //remove characters based on how many there are.
+			newstr=newstr.replace(remove[i], '');
+		}
+	}
+	return newstr.toLowerCase();
+}
+
 // generate a random number between 1 and max
 function random_int(max){
 	return String(Math.floor((Math.random() * max) + 1)).padStart(2, '0');
