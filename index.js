@@ -6,6 +6,10 @@ var name = "Beta";
 var action = "coding";
 var keyword = "clown";
 
+//keywords etc
+const keywords = ["clown", "jester", "circus", "jokes", "fool"];
+const shammykeywords = ["shammy", "shammyclown", "mona"];
+
 // emotes
 var clown = "<:looseclown:892945490730184745>";
 var shammy_clown = "<:shammyclown:892945388217192489>";
@@ -23,7 +27,7 @@ client.on("message", async message => {
 	if(message.author.bot){return;}
 	if (!message.guild){ return};
 	
-	if(message.content.includes(keyword)){
+	if(keywords.some(word => message.content.includes(word))){
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
 				message.react(simple_emote(allowed));
@@ -35,7 +39,7 @@ client.on("message", async message => {
 		}else{
 			message.channel.send(clown);
 		}
-	}else if(message.content.includes("shammy")){
+	}else if(shammykeywords.some(word => message.content.includes(word))){
 		message.channel.send(shammy_clown);
 	}
 });
