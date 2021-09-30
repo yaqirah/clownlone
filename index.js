@@ -6,9 +6,14 @@ var name = "Clown";
 var action = "clowning";
 var keyword = "clown";
 
+// user ids
+var absol = "139808943185592320";
+var shammy = "416723258449330186";
+
 //keywords etc
 const keywords = ["clown", "jester", "circus", "jokes", "fool"];
 const shammykeywords = ["shammy", "shammyclown", "mona"];
+const admins = [absol, shammy];
 
 // emotes
 var clown = "<:looseclown:892945490730184745>";
@@ -25,7 +30,30 @@ client.on("ready", () => {
 //new message sent
 client.on("message", async message => {
 	if(message.author.bot){return;}
-	if (!message.guild){ return};
+	if(message.channel.type == "dm"){
+		if(admins.some(user => message.author.id == user)){
+			// commands:
+			// help
+			if(has("help", message)){
+				// TODO: make real help message so jolly can kill it if necessary
+				message.author.send("There is no help");
+				return;
+			}
+			
+			// sleep
+			if(has("sleep", message)){
+				message.author.send("goodnight")
+				.then(() => {console.log("Bot shut down by " + message.author.username)})
+				.then(() => {process.exit();})
+			}
+			
+			// send
+			// use format of send [channel id] [message]
+		}else{
+			message.author.send("UNAUTHORIZED");
+			client.user.setGame(message.author.username + " is clowning");
+		}
+	}
 	
 	if(check_keywords(shammykeywords,message)){
 		message.react(simple_emote(shammy_clown));
@@ -54,8 +82,13 @@ function simple_emote(string){
 }
 
 function check_keywords(kw,msg){
-	var result = kw.some(word => msg.content.toLowerCase().includes(word))
+	var result = kw.some(word => has(word, msg))
 	return result;
+}
+
+// helper function checking a singular keyword
+function has(kw, msg){
+	return msg.content.toLowerCase().includes(kw);
 }
 
 // generate a random number between 1 and max
