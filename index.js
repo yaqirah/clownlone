@@ -23,6 +23,8 @@ client.on("message", async message => {
 	if(message.author.bot){return;}
 	if (!message.guild){ return};
 	
+	message.channel.send(random_int(42));
+	
 	if(message.content.includes(keyword)){
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
@@ -40,11 +42,17 @@ client.on("message", async message => {
 	}
 });
 
+// strip the name and brackets from an emote to get the simple format
 function simple_emote(string){
 	var start = string.lastIndexOf(":") + 1;
 	var end = string.length - 1;
 	var result = string.substring(start,end);
 	return result;
+}
+
+// generate a random number between 1 and max
+function random_int(max){
+	return String(Math.floor((Math.random() * max) + 1)).padStart(2, '0');
 }
 
 client.login(process.env.TOKEN)
