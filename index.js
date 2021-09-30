@@ -11,7 +11,7 @@ var absol = "139808943185592320";
 var shammy = "416723258449330186";
 
 //keywords etc
-const keywords = ["clown", "jester", "circus", "jokes", "fool", "clownbot"];
+const keywords = ["clown", "jester", "circus", "joke", "fool", "clownbot", "trick", "joker", "prank"];
 const shammykeywords = ["shammy", "shammyclown", "mona"];
 const admins = [absol, shammy];
 const yesnoquestions = ["does", "do", "did", "can", "will", "is", "are", "could", "would", "should", "shall"];
@@ -84,13 +84,17 @@ client.on("message", async message => {
 	// if yes or no question
 	if (yesorno(yesnoquestions,message))  {
 		if(Math.round(Math.random()) == 0){
-			if(check_keywords(keywords,message)) {
+			if(check_keywords(shammykeywords,message)) {
+				message.channel.send("", {files:["ls\\32.png"]});
+			} else if(check_keywords(keywords,message)) {
 				message.channel.send("", {files:["lc\\03.png"]});
 			} else {
 				message.react(simple_emote(allowed));
 			}
 		}else{
-			if(check_keywords(keywords,message)) {
+			if(check_keywords(shammykeywords,message)) {
+				message.channel.send("", {files:["ls\\30.png"]});
+			} else if(check_keywords(keywords,message)) {
 				message.channel.send("", {files:["lc\\02.png"]});
 			} else {
 				message.react(simple_emote(not_allowed));
@@ -127,7 +131,7 @@ function yesorno (kw,msg) {
 		content: ""
 	}
 	newmsg.content = msg.content // variable to hold the edited string in.
-	var clownprefix = which_keywords(keywords,msg); // find if the user addresses clown first
+	var clownprefix = which_keywords(keywords.concat(shammykeywords),msg); // find if the user addresses clown first
 	if (msg.content.startsWith(clownprefix)) {
 		newmsg.content=msg.content.substring(clownprefix.length, msg.content.length); //cut off any clown prefix
 		newmsg.content=newmsg.content.replace(",", ""); //remove any commas
