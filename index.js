@@ -27,9 +27,8 @@ client.on("message", async message => {
 	if(message.author.bot){return;}
 	if (!message.guild){ return};
 	
-	if(keywords.some(word => message.content.includes(word))){
-		message.channel.send("", {files:["lc//" + random_int(42) + ".png"]});
-		
+	if(check_keywords(keywords,message)){
+		message.channel.send(random_int(42));
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
 				message.react(simple_emote(allowed));
@@ -41,8 +40,8 @@ client.on("message", async message => {
 		}else{
 			message.channel.send(clown);
 		}
-	}else if(shammykeywords.some(word => message.content.includes(word))){
-		message.channel.send("", {files:["sc//" + random_int(43) + ".png"]});
+	}else if(check_keywords(shammykeywords,message)){
+		message.channel.send(shammy_clown);
 	}
 });
 
@@ -54,9 +53,14 @@ function simple_emote(string){
 	return result;
 }
 
+function check_keywords(kw,msg){
+	var result = kw.some(word => msg.content.toLowerCase().includes(word))
+	return result;
+	
 // generate a random number between 1 and max
 function random_int(max){
 	return String(Math.floor((Math.random() * max) + 1)).padStart(2, '0');
+
 }
 
 client.login(process.env.TOKEN)
