@@ -37,4 +37,12 @@ client.on("message", async message => {
 		message.channel.send(shammy_clown);
 	}
 });
+
+function simple_emote(string){
+	var start = string.lastIndexOf(":") + 1;
+	var end = string.length - 1;
+	var result = string.substring(start,end);
+	return result;
+}
+
 client.login(process.env.TOKEN)
