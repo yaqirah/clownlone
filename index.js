@@ -26,8 +26,10 @@ client.on("message", async message => {
 	if(message.content.includes(keyword)){
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
+				message.react(simple_emote(allowed));
 				message.channel.send(allowed);
 			}else{
+				message.react(simple_emote(not_allowed));
 				message.channel.send(not_allowed);
 			}
 		}else{
