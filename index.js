@@ -27,7 +27,7 @@ client.on("message", async message => {
 	if(message.author.bot){return;}
 	if (!message.guild){ return};
 	
-	if(keywords.some(word => message.content.includes(word))){
+	if(check_keywords(keywords,message)){
 		if(message.content.charAt(message.content.length - 1) == "?"){ // ends with ?
 			if(Math.round(Math.random()) == 0){
 				message.react(simple_emote(allowed));
@@ -39,7 +39,7 @@ client.on("message", async message => {
 		}else{
 			message.channel.send(clown);
 		}
-	}else if(shammykeywords.some(word => message.content.includes(word))){
+	}else if(check_keywords(shammykeywords,message)){
 		message.channel.send(shammy_clown);
 	}
 });
@@ -48,6 +48,11 @@ function simple_emote(string){
 	var start = string.lastIndexOf(":") + 1;
 	var end = string.length - 1;
 	var result = string.substring(start,end);
+	return result;
+}
+
+function check_keywords(kw,msg){
+	var result = kw.some(word => msg.content.toLowerCase().includes(word))
 	return result;
 }
 
