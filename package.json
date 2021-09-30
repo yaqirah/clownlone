@@ -1,24 +1,23 @@
 {
-  "name": "clown",
+  "name": "Inkling",
   "version": "1.0.0",
-  "description": "clowne",
+  "description": "Says Woomy",
   "main": "index.js",
   "dependencies": {
-    "discord.js": "^13.1.0"
+    "bufferutil": "^3.0.2",
+    "discord.js": "^11.2.1",
+    "discordie": "^0.11.0",
+    "dotenv": "^4.0.0",
+    "ffmpeg": "0.0.4",
+    "ffmpeg-binaries": "^4.0.0",
+    "install-peers": "^1.0.3",
+    "node-opus": "^0.3.2"
   },
   "devDependencies": {},
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit",
+    "start": "node index.js"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/shamye/clown.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/shamye/clown/issues"
-  },
-  "homepage": "https://github.com/shamye/clown#readme"
+  "author": "Absol#7961",
+  "license": "ISC"
 }
