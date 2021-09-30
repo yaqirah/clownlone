@@ -1,0 +1,24 @@
+{
+  "name": "clown",
+  "version": "1.0.0",
+  "description": "clowne",
+  "main": "index.js",
+  "dependencies": {
+    "discord.js": "^13.1.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shamye/clown.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shamye/clown/issues"
+  },
+  "homepage": "https://github.com/shamye/clown#readme"
+}
