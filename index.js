@@ -127,7 +127,11 @@ function check_keywords(kw,msg){
 
 // Check if a question is yes or no answerable.
 function yesorno (kw,msg) {
+	var result = 0;
 	let newmsg = {
+		content: ""
+	}
+	let firstWord = {
 		content: ""
 	}
 	newmsg.content = msg.content // variable to hold the edited string in.
@@ -138,9 +142,14 @@ function yesorno (kw,msg) {
 		newmsg.content=newmsg.content.replace(".", ""); //remove any full stops
 		newmsg.content=newmsg.content.replace(" ", ""); //remove any extra spaces
 	}
-	result = (newmsg.content.charAt(newmsg.content.length - 1) == "?"  //if it ends with a ?
-	&& newmsg.content.startsWith(which_keywords(kw,newmsg))); //and starts with a keyword
-	return result;
+	firstWord.content = newmsg.content.replace(/ .*/,'');
+	if (newmsg.content.charAt(newmsg.content.length - 1) == "?") { 
+		result+=1;
+	}
+	if (newmsg.content.startsWith(which_keywords(kw,firstWord))) {
+		result+=1;
+	}
+	return Math.floor(result/2);
 }
 
 //find a specific keyword from a group
