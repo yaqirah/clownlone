@@ -1,7 +1,7 @@
 {
-  "name": "Inkling",
+  "name": "Clown",
   "version": "1.0.0",
-  "description": "Says Woomy",
+  "description": "clowns around",
   "main": "index.js",
   "dependencies": {
     "bufferutil": "^3.0.2",
