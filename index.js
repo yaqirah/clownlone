@@ -27,7 +27,8 @@ var sendintheclowns = ["Isn't it rich?", "Are we a pair?", "Me here at last on t
 var sendintheclowns2 =[] //punctuation free version
 
 //misc
-dmMessages = ["UNAUTHORIZED USER: ENTERING *'Kill Mode'.*", "Subscribe to Clown: Premium for private DM consultations! only $24.99 USD a month!", "honk!!!", ":o)", "\*depressed honk\*", "Please leave me alone :/", "i'm on a bus to your house right now and i'm only 10 minutes away. watch your back bozo.", "I heard the magician and the knife thrower are an item now. you didn't hear it from me though :shushing_face: :flushed:", ":clown:", "please stop", "my mom said i'm not allowed to talk to strangers, sorry. take it up with her: <@416723258449330186>", "BOO!!!! did i scare u :o) hehe happy hallowe ween", "you will on july 21st 2036 in a ditch in memphis tennessee. sorry.", "do you think you're funny :/", "oh a wise guy huh? whhy i oughta.... \*pushes up sleeves revealing extremely skinny arms\*"]
+dmMessages = ["UNAUTHORIZED USER: ENTERING *'Kill Mode'.*", "Subscribe to Clown: Premium for private DM consultations! only $24.99 USD a month!", "honk!!!", ":o)", "\*depressed honk\*", "Please leave me alone :/", "i'm on a bus to your house right now and i'm only 10 minutes away. watch your back bozo.", "I heard the magician and the knife thrower are an item now. you didn't hear it from me though :shushing_face: :flushed:", ":clown:", "please stop", "my mom said i'm not allowed to talk to strangers, sorry. take it up with her: <@416723258449330186>", "BOO!!!! did i scare u :o) hehe happy hallowe ween", "you will be found on july 21st 2036 in a ditch in memphis tennessee. sorry.", "do you think you're funny :/", "oh a wise guy huh? whhy i oughta.... \*pushes up sleeves revealing extremely skinny arms\*"]
+statusList = ["Entrance of the Gladiators", "clowning", "with your heart","doing a little dance", ":o)", "🤡"];
 
 //when bot is activated
 client.on("ready", () => {
@@ -60,7 +61,7 @@ client.on("message", async message => {
 			
 			// send
 			// use format of send [id] [message]
-			if(message.content.toLowerCase().startsWith("send")){
+			if(message.content.toLowerCase().startsWith("send") && message.content.toLowerCase() != "send in the clowns"){
 				var type = message.content.substring(5, 9);
 				var id = message.content.substring(10, 28);
 				var msg = message.content.substring(29);
@@ -129,17 +130,58 @@ client.on("message", async message => {
 	
 	//if shammy
 	if(check_keywords(shammykeywords,message)){
-		message.react(simple_emote(shammy_clown));
-		message.channel.send("", {files:["ls\\" + random_int(43) + ".png"]});
+		send_shammy(message);
 		return;
 	}	
 	//if clown
 	if(check_keywords(keywords,message)){
-		message.react(simple_emote(clown));
-		message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
+		send_clown(message);
 		return;
 	}
+	
+	// if nothing that would trigger clown, roll a 100 sided die to randomly trigger something
+	var random = random_int(100);
+	console.log(random);
+	
+	// if below 20 change status
+	if(random < 20){
+		client.user.setGame(statusList[Math.floor(Math.random()*statusList.length)]);
+	}
+	else if(random == 93){
+		message.channel.send("", {files:["goodies\\edgeworth.png"]});	
+	}
+	else if(random == 94){
+		message.channel.send("", {files:["goodies\\felclown.png"]});
+	}
+	else if(random == 95){
+		message.channel.send("", {files:["goodies\\clownstate.png"]});
+	}
+	else if(random == 96){
+		message.channel.send("", {files:["goodies\\clownrat.png"]});
+	}
+	else if(random == 97){
+		message.channel.send("", {files:["goodies\\clownmario.png"]});
+	}
+	else if(random == 98){
+		message.channel.send("", {files:["goodies\\erika_welcome.mp4"]});
+	}
+	else if(random == 99){
+		send_shammy(message);
+	}
+	else if(random == 100){
+		send_clown(message);
+	}
 });
+
+function send_clown(message){
+	message.react(simple_emote(clown));
+	message.channel.send("", {files:["lc\\" + String(random_int(42)).padStart(2, '0') + ".png"]});
+}
+
+function send_shammy(message){
+	message.react(simple_emote(shammy_clown));
+	message.channel.send("", {files:["ls\\" + String(random_int(43)).padStart(2, '0') + ".png"]});
+}
 
 // strip the name and brackets from an emote to get the simple format
 function simple_emote(string){
@@ -218,7 +260,7 @@ function remove_punc(string) {
 
 // generate a random number between 1 and max
 function random_int(max){
-	return String(Math.floor((Math.random() * max) + 1)).padStart(2, '0');
+	return Math.floor((Math.random() * max) + 1);
 }
 
 client.login(process.env.TOKEN)
