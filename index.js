@@ -153,7 +153,6 @@ client.on("message", async message => {
 	
 	// if nothing that would trigger clown, roll a 100 sided die to randomly trigger something
 	var random = random_int(100);
-	console.log(random);
 	
 	// if below 20 change status
 	if(random < 20){
