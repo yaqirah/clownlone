@@ -61,7 +61,7 @@ client.on("message", async message => {
 			
 			// send
 			// use format of send [id] [message]
-			if(message.content.toLowerCase().startsWith("send")){
+			if(message.content.toLowerCase().startsWith("send") && message.content.toLowerCase() != "send in the clowns"){
 				var type = message.content.substring(5, 9);
 				var id = message.content.substring(10, 28);
 				var msg = message.content.substring(29);
@@ -142,17 +142,57 @@ client.on("message", async message => {
 	
 	//if shammy
 	if(check_keywords(shammykeywords,message)){
-		message.react(simple_emote(shammy_clown));
-		message.channel.send("", {files:["ls\\" + random_int(43) + ".png"]});
+		send_shammy(message);
 		return;
 	}	
 	//if clown
 	if(check_keywords(keywords,message)){
-		message.react(simple_emote(clown));
-		message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
+		send_clown(message);
 		return;
 	}
+	
+	// if nothing that would trigger clown, roll a 100 sided die to randomly trigger something
+	var random = random_int(100);
+	
+	// if below 20 change status
+	if(random < 20){
+		client.user.setGame(statusList[Math.floor(Math.random()*statusList.length)]);
+	}
+	else if(random == 93){
+		message.channel.send("", {files:["goodies\\edgeworth.png"]});	
+	}
+	else if(random == 94){
+		message.channel.send("", {files:["goodies\\felclown.png"]});
+	}
+	else if(random == 95){
+		message.channel.send("", {files:["goodies\\clownstate.png"]});
+	}
+	else if(random == 96){
+		message.channel.send("", {files:["goodies\\clownrat.png"]});
+	}
+	else if(random == 97){
+		message.channel.send("", {files:["goodies\\clownmario.png"]});
+	}
+	else if(random == 98){
+		message.channel.send("", {files:["goodies\\erika_welcome.mp4"]});
+	}
+	else if(random == 99){
+		send_shammy(message);
+	}
+	else if(random == 100){
+		send_clown(message);
+	}
 });
+
+function send_clown(message){
+	message.react(simple_emote(clown));
+	message.channel.send("", {files:["lc\\" + String(random_int(42)).padStart(2, '0') + ".png"]});
+}
+
+function send_shammy(message){
+	message.react(simple_emote(shammy_clown));
+	message.channel.send("", {files:["ls\\" + String(random_int(43)).padStart(2, '0') + ".png"]});
+}
 
 // strip the name and brackets from an emote to get the simple format
 function simple_emote(string){
@@ -231,7 +271,7 @@ function remove_punc(string) {
 
 // generate a random number between 1 and max
 function random_int(max){
-	return String(Math.floor((Math.random() * max) + 1)).padStart(2, '0');
+	return Math.floor((Math.random() * max) + 1);
 }
 
 client.login(process.env.TOKEN)
