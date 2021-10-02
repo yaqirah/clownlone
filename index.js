@@ -77,6 +77,7 @@ client.on("message", async message => {
 				}else if(type == "user"){
 					client.users.get(id).send(msg);
 				}
+				return;
 			}
 			
 			//status
@@ -91,17 +92,13 @@ client.on("message", async message => {
 		}
 	}
 	
-	var clownssent = false;
 	//sing with me clown
 	for (var i = 0; i<sendintheclowns2.length-1; i++) { //check through lyrics
 		if (remove_punc(message.content) == sendintheclowns2[i]) { //find which specifically
 			message.channel.send(sendintheclowns[i+1]); //send next lyric
-			clownssent=true; // we sang!!
-			break;
+			return; // we sang!!
 		}
 	}
-	
-	if (clownssent==true) {return;} //were we able to sing?
 	
 	// if yes or no question
 	if (yesorno(yesnoquestions,message))  {
@@ -127,15 +124,20 @@ client.on("message", async message => {
 				message.react(simple_emote(not_allowed));
 			}
 		}
+		return;
+	}
+	
 	//if shammy
-	} else if(check_keywords(shammykeywords,message)){
+	if(check_keywords(shammykeywords,message)){
 		message.react(simple_emote(shammy_clown));
 		message.channel.send("", {files:["ls\\" + random_int(43) + ".png"]});
-		
+		return;
+	}	
 	//if clown
-	} else if(check_keywords(keywords,message)){
+	if(check_keywords(keywords,message)){
 		message.react(simple_emote(clown));
 		message.channel.send("", {files:["lc\\" + random_int(42) + ".png"]});
+		return;
 	}
 });
 
