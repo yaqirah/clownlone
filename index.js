@@ -146,7 +146,7 @@ function yesorno (kw,msg) {
 	if (newmsg.content.charAt(newmsg.content.length - 1) == "?") { 
 		result+=1;
 	}
-	if (newmsg.content.startsWith(which_keywords(kw,firstWord))) {
+	if (newmsg.content.toLowerCase().startsWith(which_keywords(kw,firstWord))) {
 		result+=1;
 	}
 	return Math.floor(result/2);
