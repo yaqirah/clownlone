@@ -102,7 +102,7 @@ client.on("message", async message => {
 			name = message.author.username;
 		}
 		message.channel.send(name + rateMessages[Math.floor(Math.random()*rateMessages.length)]);
-		return
+		return;
 	}
 	
 	//sing with me clown
