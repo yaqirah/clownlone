@@ -26,7 +26,6 @@ var not_allowed = "<:notallowed:893221037465010196>";
 var sendintheclowns = ["Isn't it rich?", "Are we a pair?", "Me here at last on the ground", "You in mid-air", "Send in the clowns", "Isn't it bliss?", "Don't you approve?", "One who keeps tearing around", "One who can't move", "Where are the clowns?", "Send in the clowns", "Just when I stopped", "Opening doors", "Finally knowing the one that I wanted was yours", "Making my entrance again with my usual flair", "Sure of my lines", "Noone is there", "Don't you love a farce?", "My fault, I fear", "I thought that you'd want what I want", "Sorry my dear", "But where are the clowns?", "Send in the clowns", "Don't bother", "They're here"]
 var sendintheclowns2 =[] //punctuation free version
 
-
 //when bot is activated
 client.on("ready", () => {
 	client.user.setGame(action)
@@ -57,11 +56,30 @@ client.on("message", async message => {
 			}
 			
 			// send
-			// use format of send [channel id] [message]
+			// use format of send [id] [message]
+			if(message.content.toLowerCase().startsWith("send")){
+				var type = message.content.substring(5, 9);
+				var id = message.content.substring(10, 28);
+				var msg = message.content.substring(29);
+				
+				// check if id is valid
+				if(id.match(/^[0-9]+$/) == null){
+					message.author.send("invalid id");
+					return;
+				}
+				
+				if(type == "chnl"){
+					console.log(msg);
+					client.channels.get(id).send(msg);
+				}else if(type == "user"){
+					client.users.get(id).send(msg);
+				}
+			}
 			
 			//status
 			if (has("status", message)) {
 				client.user.setGame(message.content.substring(7,message.content.length));
+				return;
 			}
 		}else{
 			message.author.send("UNAUTHORIZED");
