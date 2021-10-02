@@ -26,6 +26,9 @@ var not_allowed = "<:notallowed:893221037465010196>";
 var sendintheclowns = ["Isn't it rich?", "Are we a pair?", "Me here at last on the ground", "You in mid-air", "Send in the clowns", "Isn't it bliss?", "Don't you approve?", "One who keeps tearing around", "One who can't move", "Where are the clowns?", "Send in the clowns", "Just when I stopped", "Opening doors", "Finally knowing the one that I wanted was yours", "Making my entrance again with my usual flair", "Sure of my lines", "Noone is there", "Don't you love a farce?", "My fault, I fear", "I thought that you'd want what I want", "Sorry my dear", "But where are the clowns?", "Send in the clowns", "Don't bother", "They're here"]
 var sendintheclowns2 =[] //punctuation free version
 
+//misc
+dmMessages = ["UNAUTHORIZED USER: ENTERING *'Kill Mode'.*", "Subscribe to Clown: Premium for private DM consultations! only $24.99 USD a month!", "honk!!!", ":o)", "\*depressed honk\*", "Please leave me alone :/", "i'm on a bus to your house right now and i'm only 10 minutes away. watch your back bozo.", "I heard the magician and the knife thrower are an item now. you didn't hear it from me though :shushing_face: :flushed:", ":clown:", "please stop", "my mom said i'm not allowed to talk to strangers, sorry. take it up with her: <@416723258449330186>", "BOO!!!! did i scare u :o) hehe happy hallowe ween", "you will on july 21st 2036 in a ditch in memphis tennessee. sorry.", "do you think you're funny :/", "oh a wise guy huh? whhy i oughta.... \*pushes up sleeves revealing extremely skinny arms\*"]
+
 //when bot is activated
 client.on("ready", () => {
 	client.user.setGame(action)
@@ -82,7 +85,8 @@ client.on("message", async message => {
 				return;
 			}
 		}else{
-			message.author.send("UNAUTHORIZED");
+			//message.author.send("UNAUTHORIZED");
+			message.author.send(dmMessages[Math.floor(Math.random()*dmMessages.length)]);
 			client.user.setGame(message.author.username + " is clowning");
 		}
 	}
@@ -101,7 +105,12 @@ client.on("message", async message => {
 	
 	// if yes or no question
 	if (yesorno(yesnoquestions,message))  {
+		if (random_int(10)=="01"){
+			message.author.send("Don't ask questions you don't want to know the answer to, " + message.author.username + ".");
+			return;
+		}
 		if(Math.round(Math.random()) == 0){
+			
 			if(check_keywords(shammykeywords,message)) {
 				message.channel.send("", {files:["ls\\32.png"]});
 			} else if(check_keywords(keywords,message)) {
