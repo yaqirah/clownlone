@@ -95,6 +95,14 @@ client.on("message", async message => {
 		}
 	}
 	
+	if (has("good",message) && has("night", message)) {
+		client.user.setGame("watching " + message.author.username.toLowerCase() + " sleep");
+	}
+	
+	if (has("+t",message) && has("tucc", message)) {
+		client.user.setGame("watching " + message.author.username.toLowerCase() + " sleep");
+	}
+	
 	if (message.content.toLowerCase().startsWith("clownrate")) {
 		var name = ""
 		if (message.content.length>=10) {
@@ -116,7 +124,7 @@ client.on("message", async message => {
 	
 	// if yes or no question
 	if (yesorno(yesnoquestions,message))  {
-		if (random_int(10)=="01"){
+		if (random_int(10)==1){
 			message.author.send("Don't ask questions you don't want to know the answer to, " + message.author.username + ".");
 			return;
 		}
@@ -153,10 +161,10 @@ client.on("message", async message => {
 	}
 	
 	// if nothing that would trigger clown, roll a 100 sided die to randomly trigger something
-	var random = random_int(100);
+	var random = random_int(200);
 	
-	// if below 20 change status
-	if(random < 20){
+	// if below 40 change status
+	if(random < 40){
 		client.user.setGame(statusList[Math.floor(Math.random()*statusList.length)]);
 	}
 	else if(random == 93){
