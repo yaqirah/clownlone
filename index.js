@@ -42,9 +42,9 @@ client.on("ready", () => {
 
 //send message when new member joins
 client.on('guildMemberAdd', member => {
-	const channel = member.guild.channels.find(ch => ch.name === 'funrelated-goes-hehe');
-	if (!channel) return;
-	channel.send("welcome to the funhouse ${member}!!!!", {files:["goodies\\clownstate.png"]});
+    if(member.guild="512133120447741962") {
+		client.channels.get("512140991340478475").send("", {files:["goodies\\clownstate.png"]});
+	}
 });
 
 //new message sent
