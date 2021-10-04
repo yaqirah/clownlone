@@ -40,6 +40,13 @@ client.on("ready", () => {
 	}
 });
 
+//send message when new member joins
+client.on('guildMemberAdd', member => {
+	const channel = member.guild.channels.find(ch => ch.name === 'funrelated-goes-hehe');
+	if (!channel) return;
+	channel.send("welcome to the funhouse ${member}!!!!", {files:["goodies\\clownstate.png"]});
+});
+
 //new message sent
 client.on("message", async message => {
 	if(message.author.bot){return;}
