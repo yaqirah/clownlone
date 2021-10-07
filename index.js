@@ -14,7 +14,7 @@ var shammy = "416723258449330186";
 const keywords = ["clown", "jester", "circus", "joke", "fool", "clownbot", "trick", "joker", "prank"];
 const shammykeywords = ["shammy", "shammyclown", "mona"];
 const admins = [absol, shammy];
-const yesnoquestions = ["does", "do", "did", "can", "will", "is", "are", "could", "would", "should", "shall"];
+const yesnoquestions = ["does", "do", "did", "can", "will", "is", "are", "could", "would", "should", "shall", "am"];
 
 // emotes
 var clown = "<:looseclown:892945490730184745>";
@@ -29,7 +29,7 @@ var sendintheclowns2 =[] //punctuation free version
 //misc
 dmMessages = ["UNAUTHORIZED USER: ENTERING *'Kill Mode'.*", "Subscribe to Clown: Premium for private DM consultations! only $24.99 USD a month!", "honk!!!", ":o)", "\*depressed honk\*", "Please leave me alone :/", "i'm on a bus to your house right now and i'm only 10 minutes away. watch your back bozo.", "I heard the magician and the knife thrower are an item now. you didn't hear it from me though :shushing_face: :flushed:", ":clown:", "please stop", "my mom said i'm not allowed to talk to strangers, sorry. take it up with her: <@416723258449330186>", "BOO!!!! did i scare u :o) hehe happy hallowe ween", "you will on july 21st 2036 in a ditch in memphis tennessee. sorry.", "do you think you're funny :/", "oh a wise guy huh? whhy i oughta.... \*pushes up sleeves revealing extremely skinny arms\*"]
 rateMessages = [" is 0% clowning. *yaaaawn*.", " is 0% clowning. Are you even trying???", " is 1% clowning. that's pitiful :/", " is 10% clowning. hey, go back to business school bozo!!", " is 15% clowning. uhh, amateur hour?? am i right folks?", " is 20% clowning. i think we should see other people :/", " is 25% clowning. don't quit your day job, buddy.", " is 30% clowning. keep at it and maybe you'll be on my level... in a hundred years!", " is 40% clowning. still more on the side of wiseguy than funnyman, but i see the potential.", " is 50% clowning. hey, maybe you do have a funnybone in you, kid.", " is 60% clowning. hee hee hoo hoo!!", " is 70% clowning. now that's a laugh riot.", " is 75% clowning. You're on your way to the top! the big top that is!!", " is 80% clowning. funny, funny stuff!", " is 85% clowning. Stop, stop! you're killin me kid!", " is 90% clowning. yeowza!", " is 95% clowning. do you think you're funny :/ WELL YOU ARE!!!!!!", " is 99% clowning...... impossible..... these readings..!!!", " is 100% clowning. you're not just a clown, you're the entire circus!!!", " is 101% clowning. Your power levels are incredible! I'm scared!!!!!!!!!! mommy!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"];
-statusList = ["Entrance of the Gladiators", "clowning", "with your heart","doing a little dance", ":o)", "🤡", "thinking of a prank", "pie throwing", "scheming", "doing shammy's taxes", "chewing", "lunch break", "funny", "i can do anything", "metamorphosis", "certified FunnyMan", "charging beam attack", "activating special move", "pretending to sleep", "watching you sleep"];
+statusList = ["Entrance of the Gladiators", "clowning", "with your heart","doing a little dance", ":o)", "🤡", "thinking of a prank", "pie throwing", "scheming", "doing shammy's taxes", "chewing", "lunch break", "funny", "i can do anything", "metamorphosis", "certified FunnyMan", "charging beam attack", "activating special move", "pretending to sleep", "watching you sleep", "wondering who my father is"];
 
 //when bot is activated
 client.on("ready", () => {
@@ -173,6 +173,9 @@ client.on("message", async message => {
 	// if below 40 change status
 	if(random < 40){
 		client.user.setGame(statusList[Math.floor(Math.random()*statusList.length)]);
+	}
+	else if(random == 92){
+		message.channel.send("Funny \nYour \nFunny", {files:["goodies\\loveblob.gif"]});	
 	}
 	else if(random == 93){
 		message.channel.send("", {files:["goodies\\edgeworth.png"]});	
