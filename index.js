@@ -60,13 +60,6 @@ client.on("message", async message => {
 				return;
 			}
 			
-			// sleep
-			if(has("sleep", message)){
-				message.author.send("goodnight")
-				.then(() => {console.log("Bot shut down by " + message.author.username)})
-				.then(() => {process.exit();})
-			}
-			
 			// send
 			// use format of send [id] [message]
 			if(message.content.toLowerCase().startsWith("send") && message.content.toLowerCase() != "send in the clowns"){
@@ -93,6 +86,13 @@ client.on("message", async message => {
 			if (has("status", message)) {
 				client.user.setGame(message.content.substring(7,message.content.length));
 				return;
+			}
+			
+			// sleep
+			if(has("sleep", message)){
+				message.author.send("goodnight")
+				.then(() => {console.log("Bot shut down by " + message.author.username)})
+				.then(() => {process.exit();})
 			}
 		}else{
 			//message.author.send("UNAUTHORIZED");
@@ -173,6 +173,9 @@ client.on("message", async message => {
 	// if below 40 change status
 	if(random < 40){
 		client.user.setGame(statusList[Math.floor(Math.random()*statusList.length)]);
+	}
+	else if(random == 91){
+		message.channel.send("", {files:["goodies\\generated.png"]});	
 	}
 	else if(random == 92){
 		message.channel.send("Funny \nYour \nFunny", {files:["goodies\\loveblob.gif"]});	
