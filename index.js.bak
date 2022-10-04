@@ -34,7 +34,6 @@ schlorpList = ["never schlorping", "always schlorping"];
 hotlist = ["hot", "not"];
 bingeList = ["binge", "cringe", "kind of binge", "kind of cringe", "bringe"];
 chadList = ["a chad", "an incel", "a chadcel"];
-hotlist = ["hot", "not"];
 
 //when bot is activated
 client.on("ready", () => {
