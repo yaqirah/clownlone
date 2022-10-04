@@ -34,7 +34,8 @@ schlorpList = ["never schlorping", "always schlorping"];
 hotlist = ["hot", "not"];
 bingeList = ["binge", "cringe", "kind of binge", "kind of cringe", "bringe"];
 chadList = ["a chad", "an incel", "a chadcel"];
-hotlist = ["hot", "not"];
+futchList = ["femme", "butch", "futch", "high femme", "stone butch", "femme leaning", "butch leaning"];
+twunkList = ["a twink", "a hunk", "a bear", "a twunk", "a twinkish bear", "a bearish hunk"];
 
 //when bot is activated
 client.on("ready", () => {
@@ -145,8 +146,8 @@ client.on("message", async message => {
 		return;
 	}
 	
-	if(message.content.toLowerCase().startsWith("chadscale")){
-		var name = get_name(message, "chadscale")
+	if(message.content.toLowerCase().startsWith("chadcel")){
+		var name = get_name(message, "chadcel")
 		message.channel.send(name + " is " + chadList[Math.floor(Math.random()*chadList.length)]);
 		return;
 	}
