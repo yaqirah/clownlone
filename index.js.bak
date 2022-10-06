@@ -147,7 +147,7 @@ client.on("message", async message => {
 	}
 	
 	if(message.content.toLowerCase().startsWith("chadcel")){
-		var name = get_name(message, "chadscale")
+		var name = get_name(message, "chadcel")
 		message.channel.send(name + " is " + chadList[Math.floor(Math.random()*chadList.length)]);
 		return;
 	}
@@ -211,6 +211,9 @@ client.on("message", async message => {
 	// if below 40 change status
 	if(random < 40){
 		client.user.setGame(statusList[Math.floor(Math.random()*statusList.length)]);
+	}
+	else if(random == 81){
+		message.channel.send("", {files:["goodies\\funny.jpg"]});	
 	}
 	else if(random == 82){
 		message.channel.send("", {files:["goodies\\yuijoke.jpg"]});	
@@ -319,7 +322,7 @@ function yesorno (kw,msg) {
 	}
 	newmsg.content = msg.content // variable to hold the edited string in.
 	var clownprefix = which_keywords(keywords.concat(shammykeywords),msg); // find if the user addresses clown first
-	if (msg.content.startsWith(clownprefix)) {
+	if (msg.content.toLowerCase.startsWith(clownprefix)) {
 		newmsg.content=msg.content.substring(clownprefix.length, msg.content.length); //cut off any clown prefix
 		newmsg.content=newmsg.content.replace(",", ""); //remove any commas
 		newmsg.content=newmsg.content.replace(".", ""); //remove any full stops
