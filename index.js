@@ -9,18 +9,20 @@ var keyword = "clown";
 // user ids
 var absol = "139808943185592320";
 var shammy = "416723258449330186";
+var convPartner = "-1";
 
 //keywords etc
 const keywords = ["clown", "jester", "circus", "joke", "fool", "clownbot", "trick", "joker", "prank"];
 const shammykeywords = ["shammy", "shammyclown", "mona"];
 const admins = [absol, shammy];
+const restricted = ["1287927938318340166","666023707151564814","591507879098449931","1293445108385185833"]
 const yesnoquestions = ["does", "do", "did", "can", "will", "is", "are", "could", "would", "should", "shall", "am"];
 
 // emotes
-var clown = "<:looseclown:1026316835504803952>";
-var shammy_clown = "<:shammyclown:892945388217192489>";
-var allowed = "<:allowed:1025675683961249843>";
-var not_allowed = "<:notallowed:1025675694652543037>";
+var clown = "<:looseclown:769876760866586634>";
+var shammy_clown = "<:shammy_clown:769876309945876501>";
+var allowed = "<:allowed:1025675642748014602>";
+var not_allowed = "<:notallowed:1025675644606087189>";
 
 //songs
 var sendintheclowns = ["Isn't it rich?", "Are we a pair?", "Me here at last on the ground", "You in mid-air", "Send in the clowns", "Isn't it bliss?", "Don't you approve?", "One who keeps tearing around", "One who can't move", "Where are the clowns?", "Send in the clowns", "Just when I stopped", "Opening doors", "Finally knowing the one that I wanted was yours", "Making my entrance again with my usual flair", "Sure of my lines", "Noone is there", "Don't you love a farce?", "My fault, I fear", "I thought that you'd want what I want", "Sorry my dear", "But where are the clowns?", "Send in the clowns", "Don't bother", "They're here"];
@@ -29,11 +31,11 @@ var sendintheclowns2 =[]; //punctuation free version
 //misc
 dmMessages = ["UNAUTHORIZED USER: ENTERING *'Kill Mode'.*", "Subscribe to Clown: Premium for private DM consultations! only $24.99 USD a month!", "honk!!!", ":o)", "\*depressed honk\*", "Please leave me alone :/", "i'm on a bus to your house right now and i'm only 10 minutes away. watch your back bozo.", "I heard the magician and the knife thrower are an item now. you didn't hear it from me though :shushing_face: :flushed:", ":clown:", "please stop", "my mom said i'm not allowed to talk to strangers, sorry. take it up with her: <@416723258449330186>", "BOO!!!! did i scare u :o) hehe happy hallowe ween", "you will on july 21st 2036 in a ditch in memphis tennessee. sorry.", "do you think you're funny :/", "oh a wise guy huh? whhy i oughta.... \*pushes up sleeves revealing extremely skinny arms\*"]
 rateMessages = [" is 0% clowning. *yaaaawn*.", " is 0% clowning. Are you even trying???", " is 1% clowning. that's pitiful :/", " is 10% clowning. hey, go back to business school bozo!!", " is 15% clowning. uhh, amateur hour?? am i right folks?", " is 20% clowning. i think we should see other people :/", " is 25% clowning. don't quit your day job, buddy.", " is 30% clowning. keep at it and maybe you'll be on my level... in a hundred years!", " is 40% clowning. still more on the side of wiseguy than funnyman, but i see the potential.", " is 50% clowning. hey, maybe you do have a funnybone in you, kid.", " is 60% clowning. hee hee hoo hoo!!", " is 70% clowning. now that's a laugh riot.", " is 75% clowning. You're on your way to the top! the big top that is!!", " is 80% clowning. funny, funny stuff!", " is 85% clowning. Stop, stop! you're killin me kid!", " is 90% clowning. yeowza!", " is 95% clowning. do you think you're funny :/ WELL YOU ARE!!!!!!", " is 99% clowning...... impossible..... these readings..!!!", " is 100% clowning. you're not just a clown, you're the entire circus!!!", " is 101% clowning. Your power levels are incredible! I'm scared!!!!!!!!!! mommy!!!!!!!!!!!!!!!!!!!!!!!!!!!!!"];
-statusList = ["Entrance of the Gladiators", "clowning", "with your heart","doing a little dance", ":o)", "🤡", "thinking of a prank", "pie throwing", "scheming", "doing shammy's taxes", "chewing", "lunch break", "funny", "i can do anything", "metamorphosis", "certified FunnyMan", "charging beam attack", "activating special move", "pretending to sleep", "watching you sleep", "wondering who my father is"];
+statusList = ["Entrance of the Gladiators", "clowning", "with your heart","doing a little dance", ":o)", "🤡", "thinking of a prank", "pie throwing", "scheming", "doing shammy's laundry", "mogging", "chewing", "lunch break", "funny", "i can do anything", "metamorphosis", "certified FunnyMan", "charging beam attack", "activating special attack", "pretending to sleep", "watching you sleep", "wondering who my father is", "baking a pie", "pulling on a really long string", "god", "a big bassoon", "eating little treasts", "stealing gum from the corner store", "trying not to blink", "panning for gold", "some sick shit... you don't even wanna know..."];
 schlorpList = ["never schlorping", "always schlorping"];
 hotlist = ["hot", "not"];
 bingeList = ["binge", "cringe", "kind of binge", "kind of cringe", "bringe"];
-chadList = ["a chad", "an incel", "a chadcel"];
+chadList = ["a chad", "an incel", "a chadcel", "a volcel", "just normal"];
 futchList = ["femme", "butch", "futch", "high femme", "stone butch", "femme leaning", "butch leaning"];
 twunkList = ["a twink", "a hunk", "a bear", "a twunk", "a twinkish bear", "a bearish hunk"];
 
@@ -47,22 +49,22 @@ client.on("ready", () => {
 });
 
 //send message when new member joins
-client.on('guildMemberAdd', member => {
-    if(member.guild="512133120447741962") {
-		client.channels.get("512140991340478475").send("", {files:["goodies\\clownstate.png"]});
-	}
-});
+//client.on('guildMemberAdd', member => {
+    //if(member.guild="512133120447741962") {
+		//client.channels.get("512140991340478475").send("", {files:["goodies\\clownstate.png"]});
+	//}
+//});
 
 //new message sent
 client.on("message", async message => {
-	if(message.author.bot){return;}
+	if(message.author.bot && message.author.id!=1252079475135348858){return;}
 	if(message.channel.type == "dm"){
 		if(admins.some(user => message.author.id == user)){
 			// commands:
 			// help
 			if(has("help", message)){
 				// TODO: make real help message so jolly can kill it if necessary
-				message.author.send("There is no help");
+				message.author.send("https://www.youtube.com/watch?v=ITo-WbpANi0");
 				return;
 			}
 			
@@ -70,8 +72,15 @@ client.on("message", async message => {
 			// use format of send [id] [message]
 			if(message.content.toLowerCase().startsWith("send") && message.content.toLowerCase() != "send in the clowns"){
 				var type = message.content.substring(5, 9);
-				var id = message.content.substring(10, 28);
-				var msg = message.content.substring(29);
+				console.log("type=" + type);
+				var restof = message.content.substring(10);
+				console.log("restof=" + restof);
+				var endofid = message.content.substring(10).indexOf(' ');
+				console.log("endofid=" + endofid);
+				var id = message.content.substring(10, 10+endofid);
+				console.log("id=" + id);
+				var msg = message.content.substring(10+endofid+1);
+				console.log("message=" + msg);
 				
 				// check if id is valid
 				if(id.match(/^[0-9]+$/) == null){
@@ -104,8 +113,17 @@ client.on("message", async message => {
 			//message.author.send("UNAUTHORIZED");
 			message.author.send(dmMessages[Math.floor(Math.random()*dmMessages.length)]);
 			client.user.setGame(message.author.username + " is clowning");
+			convPartner=message.author.id;
 			return;
 		}
+	}
+	
+	if(restricted.some(chnl => message.channel.id == chnl)) {
+		if(check_keywords(["clown"],message)){
+			send_clown(message);
+			convPartner=message.author.id;
+		}
+		return;
 	}
 	
 	if (has("good",message) && has("night", message)) {
@@ -119,42 +137,49 @@ client.on("message", async message => {
 	if(message.content.toLowerCase().startsWith("schlorpscale")){
 		var name = get_name(message, "schlorpscale");
 		message.channel.send(name + " is " + schlorpList[Math.floor(Math.random()*schlorpList.length)]);
+		convPartner=message.author.id;
 		return;
 	}
 	
 	if(message.content.toLowerCase().startsWith("bingeorcringe")){
 		var name = get_name(message, "bingeorcringe");
 		message.channel.send(name + " is " + bingeList[Math.floor(Math.random()*bingeList.length)]);
+		convPartner=message.author.id;
 		return;
 	}
 	
 	if(message.content.toLowerCase().startsWith("hotornot")){
 		var name = get_name(message, "hotornot");
 		message.channel.send(name + " is " + hotlist[Math.floor(Math.random()*hotlist.length)]);
+		convPartner=message.author.id;
 		return;
 	}
 	
 	if(message.content.toLowerCase().startsWith("twunkscale")){
 		var name = get_name(message, "twunkscale");
 		message.channel.send(name + " is " + twunkList[Math.floor(Math.random()*twunkList.length)]);
+		convPartner=message.author.id;
 		return;
 	}
 	
 	if(message.content.toLowerCase().startsWith("futchscale")){
 		var name = get_name(message, "futchscale")
 		message.channel.send(name + " is " + futchList[Math.floor(Math.random()*futchList.length)]);
+		convPartner=message.author.id;
 		return;
 	}
 	
 	if(message.content.toLowerCase().startsWith("chadcel")){
 		var name = get_name(message, "chadcel")
 		message.channel.send(name + " is " + chadList[Math.floor(Math.random()*chadList.length)]);
+		convPartner=message.author.id;
 		return;
 	}
 	
 	if (message.content.toLowerCase().startsWith("clownrate")) {
 		var name = get_name(message, "clownrate");
 		message.channel.send(name + rateMessages[Math.floor(Math.random()*rateMessages.length)]);
+		convPartner=message.author.id;
 		return;
 	}
 	
@@ -162,6 +187,7 @@ client.on("message", async message => {
 	for (var i = 0; i<sendintheclowns2.length-1; i++) { //check through lyrics
 		if (remove_punc(message.content) == sendintheclowns2[i]) { //find which specifically
 			message.channel.send(sendintheclowns[i+1]); //send next lyric
+			convPartner=message.author.id;
 			return; // we sang!!
 		}
 	}
@@ -170,25 +196,36 @@ client.on("message", async message => {
 	if (yesorno(yesnoquestions,message))  {
 		console.log("is question...");
 		if (random_int(10)==1){
-			message.author.send("Don't ask questions you don't want to know the answer to, " + message.author.username + ".");
+			if (random_int(2)==1) {
+				message.author.send("I don't knowwwwwww " + message.author.username + " I don't knowwwww");
+			} else {
+				message.author.send("Brave of you to ask me that " + message.author.username + ".");
+			}
+			convPartner=message.author.id;
 			return;
 		}
 		if(Math.round(Math.random()) == 0){
 			
 			if(check_keywords(shammykeywords,message)) {
 				message.channel.send("", {files:["ls\\32.png"]});
+				convPartner=message.author.id;
 			} else if(check_keywords(keywords,message)) {
 				message.channel.send("", {files:["lc\\03.png"]});
+				convPartner=message.author.id;
 			} else {
 				message.react(simple_emote(allowed));
+				convPartner=message.author.id;
 			}
 		}else{
 			if(check_keywords(shammykeywords,message)) {
 				message.channel.send("", {files:["ls\\30.png"]});
+				convPartner=message.author.id;
 			} else if(check_keywords(keywords,message)) {
 				message.channel.send("", {files:["lc\\02.png"]});
+				convPartner=message.author.id;
 			} else {
 				message.react(simple_emote(not_allowed));
+				convPartner=message.author.id;
 			}
 		}
 		return;
@@ -197,16 +234,30 @@ client.on("message", async message => {
 	//if shammy
 	if(check_keywords(shammykeywords,message)){
 		send_shammy(message);
+		convPartner=message.author.id;
 		return;
 	}	
+
 	//if clown
 	if(check_keywords(keywords,message)){
 		send_clown(message);
+		convPartner=message.author.id;
+		return;
+	}
+	
+	if(message.author.id == convPartner) {
+		if(Math.round(Math.random()) == 0){
+			send_clown(message);
+			console.log("continuing conversation");
+		} else {
+			console.log("chose not to respond...");
+		}
+		convPartner="-4"
 		return;
 	}
 	
 	// if nothing that would trigger clown, roll a 100 sided die to randomly trigger something
-	var random = random_int(200);
+	var random = random_int(800);
 	
 	// if below 40 change status
 	if(random < 40){
@@ -228,7 +279,7 @@ client.on("message", async message => {
 		message.channel.send("", {files:["goodies\\harleyquinnanime.jpg"]});	
 	}
 	else if(random == 86){
-		message.channel.send("", {files:["goodies\\giojoke.jpg"]});	
+		message.channel.send("", {files:["goodies\\giorjoke.jpg"]});	
 	}
 	else if(random == 87){
 		message.channel.send("", {files:["goodies\\clowncomp.jpg"]});	
